@@ -2,8 +2,8 @@ import React, { useEffect, useState, createContext, useContext } from 'react'
 import { SupabaseClient, Session, User } from '@supabase/supabase-js'
 
 export interface AuthSession {
-  user: User | null
-  session: Session | null
+  user: User | null | undefined
+  session: Session | null | undefined
 }
 
 const UserContext = createContext<AuthSession>({ user: null, session: null })
@@ -15,8 +15,8 @@ export interface Props {
 
 export const UserContextProvider = (props: Props) => {
   const { supabaseClient } = props
-  const [session, setSession] = useState<Session | null>(null)
-  const [user, setUser] = useState<User | null>(null)
+  const [session, setSession] = useState<Session | null | undefined>(undefined)
+  const [user, setUser] = useState<User | null | undefined>(undefined)
 
   useEffect(() => {
     const session = supabaseClient.auth.session()
